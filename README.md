@@ -4,4 +4,4 @@ Catastrophic Forgetting Makes the Chain-of-Thought More Load-Bearing, Not Less, 
 
 Figures and tables can be regenerated with `python cfd_all.py figures --root runs`
 
-As Extra, not for hackathon: https://github.com/Ralolooaf/multi-cfcot
+As Extra, not for hackathon, multi-agent: https://github.com/Ralolooaf/multi-cfcot
