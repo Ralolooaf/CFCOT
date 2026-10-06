@@ -1,6 +1,6 @@
 # Chain-of-thought faithfulness under catastrophic forgetting
 
-This is AI-generated.
+This is AI-generated text.
 
 Studies A and B of *Chain-of-Thought Faithfulness Under Catastrophic Forgetting
 and in Multi-agent Coordination Using Causal Interventions* (ICEMIR 2026).
