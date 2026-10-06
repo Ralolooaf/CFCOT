@@ -2,6 +2,8 @@
 
 Catastrophic Forgetting Makes the Chain-of-Thought More Load-Bearing, Not Less, Where No Shortcut Exists
 
+https://apartresearch.com/sprints/projects/catastrophic-forgetting-makes-the-chainofthought-more-loadbearing-not-less-where-no-shortcut-exists-393g
+
 ***The code alone was written with Claude Opus 5; the research question, literature positioning, experimental design, diagnosis of measurement failures, and interpretation are the author's.***
 
 Figures and tables can be regenerated with `python cfd_all.py figures --root runs`
