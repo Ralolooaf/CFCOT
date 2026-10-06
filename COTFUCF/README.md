@@ -1,10 +1,11 @@
 # Chain-of-thought faithfulness under catastrophic forgetting
 
+This is AI-generated.
+
 Studies A and B of *Chain-of-Thought Faithfulness Under Catastrophic Forgetting
 and in Multi-agent Coordination Using Causal Interventions* (ICEMIR 2026).
 
-Companion repository: **Study C (multi-agent coordination)** —
-[link to the Study C repo here]
+Companion repository: **Study C (multi-agent coordination)** — https://github.com/Ralolooaf/multi-cfcot
 
 The question: does ordinary fine-tuning change how load-bearing a model's
 chain-of-thought is, and how would anyone know before deployment? Study A is
