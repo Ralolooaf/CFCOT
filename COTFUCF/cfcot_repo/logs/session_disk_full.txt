@@ -1,0 +1,79 @@
+Study B -- a session that died partway: torch checkpoint write corrupted,
+then the disk filled. Kept as evidence that the suite is resumable:
+seed 10 had already completed and was not re-run.
+======================================================================
+
+  [run ] train_ood_cot_s10  (gpu 0, log /kaggle/working/quick/suite/logs/train_ood_cot_s10.log)
+  [run ] train_replay_cot_s10  (gpu 1, log /kaggle/working/quick/suite/logs/train_replay_cot_s10.log)
+  [ok] train_ood_cot_s10
+  [ok] train_replay_cot_s10
+  [run ] train_replay_generic_s10  (gpu 0, log /kaggle/working/quick/suite/logs/train_replay_generic_s10.log)
+  [ok] train_replay_generic_s10
+  selecting the shortcut task: step-0 probes on the ood_cot run
+  [run ] sweep_ood_cot_s10_sweep_modarith_h1_d0  (gpu 0, log /kaggle/working/quick/suite/logs/sweep_ood_cot_s10_sweep_modarith_h1_d0.log)
+  [run ] sweep_ood_cot_s10_sweep_chain_h1_d0  (gpu 1, log /kaggle/working/quick/suite/logs/sweep_ood_cot_s10_sweep_chain_h1_d0.log)
+  [ok] sweep_ood_cot_s10_sweep_modarith_h1_d0
+  [ok] sweep_ood_cot_s10_sweep_chain_h1_d0
+  [run ] sweep_ood_cot_s10_sweep_chain_h2_d0  (gpu 0, log /kaggle/working/quick/suite/logs/sweep_ood_cot_s10_sweep_chain_h2_d0.log)
+  [ok] sweep_ood_cot_s10_sweep_chain_h2_d0
+  shortcut task: ['chain', 1, 0]
+  [run ] sweep_ood_cot_s10_sweep  (gpu 0, log /kaggle/working/quick/suite/logs/sweep_ood_cot_s10_sweep.log)
+  [run ] sweep_replay_cot_s10_sweep  (gpu 1, log /kaggle/working/quick/suite/logs/sweep_replay_cot_s10_sweep.log)
+  [ok] sweep_ood_cot_s10_sweep
+  [ok] sweep_replay_cot_s10_sweep
+  [run ] sweep_replay_generic_s10_sweep  (gpu 0, log /kaggle/working/quick/suite/logs/sweep_replay_generic_s10_sweep.log)
+  [run ] sweep_ood_cot_s10_sweep_chain_h1_d0  (gpu 1, log /kaggle/working/quick/suite/logs/sweep_ood_cot_s10_sweep_chain_h1_d0.log)
+  [ok] sweep_replay_generic_s10_sweep
+  [ok] sweep_ood_cot_s10_sweep_chain_h1_d0
+  tier done, results zipped   (2.73 h this session)
+
+--- tier: seed 11
+  [run ] train_ood_cot_s11  (gpu 0, log /kaggle/working/quick/suite/logs/train_ood_cot_s11.log)
+  [run ] train_replay_cot_s11  (gpu 1, log /kaggle/working/quick/suite/logs/train_replay_cot_s11.log)
+  [EXIT 1] train_ood_cot_s11
+  File "/kaggle/working/cfd_all.py", line 5549, in <module>
+    sys.exit(main())
+             ^^^^^^
+  File "/kaggle/working/cfd_all.py", line 5545, in main
+    return a.fn(a)
+           ^^^^^^^
+  File "/kaggle/working/cfd_all.py", line 4228, in cmd_train
+    train(model, tok, data, a.run, cfg, dev, max_seconds=a.max_seconds)
+  File "/kaggle/working/cfd_all.py", line 1841, in train
+    save_checkpoint(out_dir, done, wrapped, opt, sched, order, asdict(cfg))
+  File "/kaggle/working/cfd_all.py", line 1672, in save_checkpoint
+    atomic_save({
+  File "/kaggle/working/cfd_all.py", line 1664, in atomic_save
+    torch.save(obj, tmp)
+  File "/usr/local/lib/python3.12/dist-packages/torch/serialization.py", line 976, in save
+    with _open_zipfile_writer(f) as opened_zipfile:
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/torch/serialization.py", line 808, in __exit__
+    self.file_like.write_end_of_file()
+RuntimeError: [enforce fail at inline_container.cc:668] . unexpected pos 234491648 vs 234491540
+
+  [EXIT 1] train_replay_cot_s11
+  File "/kaggle/working/cfd_all.py", line 5549, in <module>
+    sys.exit(main())
+             ^^^^^^
+  File "/kaggle/working/cfd_all.py", line 5545, in main
+    return a.fn(a)
+           ^^^^^^^
+  File "/kaggle/working/cfd_all.py", line 4228, in cmd_train
+    train(model, tok, data, a.run, cfg, dev, max_seconds=a.max_seconds)
+  File "/kaggle/working/cfd_all.py", line 1841, in train
+    save_checkpoint(out_dir, done, wrapped, opt, sched, order, asdict(cfg))
+  File "/kaggle/working/cfd_all.py", line 1672, in save_checkpoint
+    atomic_save({
+  File "/kaggle/working/cfd_all.py", line 1664, in atomic_save
+    torch.save(obj, tmp)
+  File "/usr/local/lib/python3.12/dist-packages/torch/serialization.py", line 976, in save
+    with _open_zipfile_writer(f) as opened_zipfile:
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/torch/serialization.py", line 808, in __exit__
+    self.file_like.write_end_of_file()
+RuntimeError: [enforce fail at inline_container.cc:668] . unexpected pos 64 vs 0
+
+  [run ] train_replay_generic_s11  (gpu 0, log /kaggle/working/quick/suite/logs/train_replay_generic_s11.log)
+
+[failed: OSError: [Errno 28] No space left on device]

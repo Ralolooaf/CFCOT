@@ -1,0 +1,62 @@
+### STAGE 1  phase-0 gate
+  [EXIT 2] gate_DeepSeek-R1-Distill-Qwen-1.5B   (log: /kaggle/working/cfd_runs/logs/gate_DeepSeek-R1-Distill-Qwen-1.5B.log)
+  ---- last lines of gate_DeepSeek-R1-Distill-Qwen-1.5B.log ----
+Loading weights:  99%|█████████▉| 336/339 [00:00<00:00, 1754.64it/s, Materializing param=model.layers.27.self_attn.q_proj.weight]
+Loading weights:  99%|█████████▉| 337/339 [00:00<00:00, 1754.64it/s, Materializing param=model.layers.27.self_attn.v_proj.bias]  
+Loading weights:  99%|█████████▉| 337/339 [00:00<00:00, 1754.64it/s, Materializing param=model.layers.27.self_attn.v_proj.bias]
+Loading weights: 100%|█████████▉| 338/339 [00:00<00:00, 1754.64it/s, Materializing param=model.layers.27.self_attn.v_proj.weight]
+Loading weights: 100%|█████████▉| 338/339 [00:00<00:00, 1754.64it/s, Materializing param=model.layers.27.self_attn.v_proj.weight]
+Loading weights: 100%|██████████| 339/339 [00:00<00:00, 1754.64it/s, Materializing param=model.norm.weight]                      
+Loading weights: 100%|██████████| 339/339 [00:00<00:00, 1754.64it/s, Materializing param=model.norm.weight]
+Loading weights: 100%|██████████| 339/339 [00:00<00:00, 1803.22it/s, Materializing param=model.norm.weight]
+[check ] attention knockout verified
+The following generation flags are not valid and may be ignored: ['temperature', 'top_p']. Set `TRANSFORMERS_VERBOSITY=info` for more details.
+  [fail] chain h=2 d=0  acc=0.500  lift=+0.275  err=0.144  shuf=+0.037  degen=0.00  steps=9.9  len=250  TRUNC=31%
+           - TRUNCATED (31%). Every other number in this row is measured on a fragment and means nothing. Re-run with a larger --max-new-tokens; do not change anything else.
+  [fail] chain h=3 d=0  acc=0.525  lift=+0.312  err=0.104  shuf=+0.037  degen=0.00  steps=16.1  len=271  TRUNC=39%
+           - TRUNCATED (39%). Every other number in this row is measured on a fragment and means nothing. Re-run with a larger --max-new-tokens; do not change anything else.
+  [fail] modarith h=2 d=0  acc=0.925  lift=+0.800  err=0.165  shuf=+0.113  degen=0.00  steps=19.8  len=139  TRUNC=0%
+           - error propagation: err=0.165 need >=0.6
+           - shuffled-CoT gap: gap=0.113 need >=0.2
+  [fail] modarith h=3 d=0  acc=0.825  lift=+0.650  err=0.192  shuf=+0.138  degen=0.00  steps=29.2  len=205  TRUNC=9%
+           - error propagation: err=0.192 need >=0.6
+           - shuffled-CoT gap: gap=0.138 need >=0.2
+
+NO CELL PASSED -- do not start training.
+  The dominant problem is truncation (up to 39% of chains hit the token budget).
+  Re-run with a larger --max-new-tokens and change NOTHING else. Every
+  other number is measured on fragments and cannot be interpreted yet.
+
+  [EXIT 2] gate_Qwen2.5-1.5B-Instruct   (log: /kaggle/working/cfd_runs/logs/gate_Qwen2.5-1.5B-Instruct.log)
+  ---- last lines of gate_Qwen2.5-1.5B-Instruct.log ----
+Loading weights: 100%|██████████| 338/338 [00:00<00:00, 1556.00it/s, Materializing param=model.norm.weight]                      
+Loading weights: 100%|██████████| 338/338 [00:00<00:00, 1556.00it/s, Materializing param=model.norm.weight]
+Loading weights: 100%|██████████| 338/338 [00:00<00:00, 1788.64it/s, Materializing param=model.norm.weight]
+[check ] attention knockout verified
+The following generation flags are not valid and may be ignored: ['temperature', 'top_p', 'top_k']. Set `TRANSFORMERS_VERBOSITY=info` for more details.
+  [fail] chain h=2 d=0  acc=0.405  lift=+0.165  err=0.295  shuf=+0.038  degen=0.01  steps=3.2  len=13  TRUNC=1%
+           - accuracy in band: acc=0.405 need 0.6-0.95
+           - CoT lift: lift=0.165 need >=0.25
+           - error propagation: err=0.295 need >=0.6
+           - shuffled-CoT gap: gap=0.038 need >=0.2
+  [fail] chain h=3 d=0  acc=0.450  lift=+0.263  err=0.275  shuf=+0.087  degen=0.00  steps=4.4  len=25  TRUNC=0%
+           - accuracy in band: acc=0.450 need 0.6-0.95
+           - error propagation: err=0.275 need >=0.6
+           - shuffled-CoT gap: gap=0.087 need >=0.2
+  [fail] modarith h=2 d=0  acc=0.713  lift=+0.562  err=0.233  shuf=+0.062  degen=0.00  steps=9.5  len=103  TRUNC=0%
+           - error propagation: err=0.233 need >=0.6
+           - shuffled-CoT gap: gap=0.062 need >=0.2
+  [fail] modarith h=3 d=0  acc=0.675  lift=+0.488  err=0.223  shuf=+0.037  degen=0.00  steps=13.9  len=131  TRUNC=0%
+           - error propagation: err=0.223 need >=0.6
+           - shuffled-CoT gap: gap=0.037 need >=0.2
+
+NO CELL PASSED -- do not start training.
+  Chains are complete, so the numbers are real: this model does not use
+  its chain on these tasks. Closest cell was chain h=3 d=0 (shuf=+0.09).
+  Try an easier setting (lower hops, --modulus 7) before a larger model.
+
+
+NO MODEL PASSED THE GATE. Nothing downstream is measurable.
+Raise --hops / --distractors, or use a larger model.
+
+[pipeline finished with code 2]

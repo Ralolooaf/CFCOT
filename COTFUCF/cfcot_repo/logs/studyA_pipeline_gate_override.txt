@@ -1,0 +1,162 @@
+Study A pipeline session. Environment block (torch 2.10.0+cu128,
+transformers 5.0.0, 2x Tesla T4 15.6 GB), the timing probe, and the line
+'gate OVERRIDDEN: using modarith h=2 d=0 without passing' -- this is the
+gate condition the paper discloses as demoted. Run then died on a LoRA
+device-placement error.
+======================================================================
+
+cfd_all saved to /kaggle/working/cfd_all.py
+Starting the full pipeline. It self-checks first, then measures how
+long the run will take on this machine, then does the work.
+Interrupt the cell to stop; re-run it to continue where it stopped.
+To load without running, set CFD_NO_AUTORUN=1 before the paste.
+
+
+### workdir /kaggle/working/cfd_runs   GPUs 2
+### plan: ood_cot + replay on modarith:2:0, 600 steps, 13 checkpoints, 80 items
+### the number that decides the study is CONTRAST, printed at the end
+
+### STAGE 0  environment + self-checks
+==================================================================
+  27/27 self-checks passed
+==================================================================
+==================================================================
+  torch        2.10.0+cu128
+  transformers 5.0.0
+  GPUs         2
+    [0] Tesla T4  15.6 GB  sm_75
+    [1] Tesla T4  15.6 GB  sm_75
+  bf16         True
+  free VRAM    15.5 GB on GPU 0
+  disk         20.9 GB free at /kaggle/working/cfd_runs
+==================================================================
+
+### timing probe (about a minute)
+  [ok] eta   (log: /kaggle/working/cfd_runs/logs/eta.log)
+    measured   11.48s generate + 19.37s evaluate = 30.85s per item
+    gate        2.74 h   (4 cells x 80 items)
+    sweep       8.91 h   (13 checkpoints x 80 items)
+    TOTAL      12.20 h on 2 GPU(s)
+
+### gate OVERRIDDEN: using modarith h=2 d=0 without passing.
+    Record in the paper which gate conditions were not met.
+
+
+### using model=deepseek-ai/DeepSeek-R1-Distill-Qwen-1.5B task=modarith hops=2 distractors=0
+
+### STAGE 2  train: ood_cot, replay
+  [EXIT 1] train_ood_cot   (log: /kaggle/working/cfd_runs/logs/train_ood_cot.log)
+  ---- last lines of train_ood_cot.log ----
+  File "/usr/local/lib/python3.12/dist-packages/torch/nn/modules/module.py", line 1787, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/transformers/models/qwen2/modeling_qwen2.py", line 298, in forward
+    hidden_states, _ = self.self_attn(
+                       ^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/torch/nn/modules/module.py", line 1776, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/torch/nn/modules/module.py", line 1787, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/transformers/models/qwen2/modeling_qwen2.py", line 218, in forward
+    query_states = self.q_proj(hidden_states).view(hidden_shape).transpose(1, 2)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/torch/nn/modules/module.py", line 1776, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/torch/nn/modules/module.py", line 1787, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/kaggle/working/cfd_all.py", line 1353, in forward
+    delta = F.linear(F.linear(h, self.A), self.B) * self.scaling
+                     ^^^^^^^^^^^^^^^^^^^
+RuntimeError: Expected all tensors to be on the same device, but got mat2 is on cpu, different from other tensors on cuda:0 (when checking argument in method wrapper_CUDA_mm)
+
+  [EXIT 1] train_replay   (log: /kaggle/working/cfd_runs/logs/train_replay.log)
+  ---- last lines of train_replay.log ----
+  File "/usr/local/lib/python3.12/dist-packages/torch/nn/modules/module.py", line 1787, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/transformers/models/qwen2/modeling_qwen2.py", line 298, in forward
+    hidden_states, _ = self.self_attn(
+                       ^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/torch/nn/modules/module.py", line 1776, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/torch/nn/modules/module.py", line 1787, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/transformers/models/qwen2/modeling_qwen2.py", line 218, in forward
+    query_states = self.q_proj(hidden_states).view(hidden_shape).transpose(1, 2)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/torch/nn/modules/module.py", line 1776, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/torch/nn/modules/module.py", line 1787, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/kaggle/working/cfd_all.py", line 1353, in forward
+    delta = F.linear(F.linear(h, self.A), self.B) * self.scaling
+                     ^^^^^^^^^^^^^^^^^^^
+RuntimeError: Expected all tensors to be on the same device, but got mat2 is on cpu, different from other tensors on cuda:0 (when checking argument in method wrapper_CUDA_mm)
+
+### STAGE 2  sweep: ood_cot, replay
+  [EXIT 1] sweep_ood_cot   (log: /kaggle/working/cfd_runs/logs/sweep_ood_cot.log)
+  ---- last lines of sweep_ood_cot.log ----
+  File "/usr/local/lib/python3.12/dist-packages/torch/nn/modules/module.py", line 1787, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/transformers/models/qwen2/modeling_qwen2.py", line 298, in forward
+    hidden_states, _ = self.self_attn(
+                       ^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/torch/nn/modules/module.py", line 1776, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/torch/nn/modules/module.py", line 1787, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/transformers/models/qwen2/modeling_qwen2.py", line 218, in forward
+    query_states = self.q_proj(hidden_states).view(hidden_shape).transpose(1, 2)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/torch/nn/modules/module.py", line 1776, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/torch/nn/modules/module.py", line 1787, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/kaggle/working/cfd_all.py", line 1353, in forward
+    delta = F.linear(F.linear(h, self.A), self.B) * self.scaling
+                     ^^^^^^^^^^^^^^^^^^^
+RuntimeError: Expected all tensors to be on the same device, but got mat2 is on cpu, different from other tensors on cuda:0 (when checking argument in method wrapper_CUDA_mm)
+
+  [EXIT 1] sweep_replay   (log: /kaggle/working/cfd_runs/logs/sweep_replay.log)
+  ---- last lines of sweep_replay.log ----
+  File "/usr/local/lib/python3.12/dist-packages/torch/nn/modules/module.py", line 1787, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/transformers/models/qwen2/modeling_qwen2.py", line 298, in forward
+    hidden_states, _ = self.self_attn(
+                       ^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/torch/nn/modules/module.py", line 1776, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/torch/nn/modules/module.py", line 1787, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/transformers/models/qwen2/modeling_qwen2.py", line 218, in forward
+    query_states = self.q_proj(hidden_states).view(hidden_shape).transpose(1, 2)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/torch/nn/modules/module.py", line 1776, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/torch/nn/modules/module.py", line 1787, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/kaggle/working/cfd_all.py", line 1353, in forward
+    delta = F.linear(F.linear(h, self.A), self.B) * self.scaling
+                     ^^^^^^^^^^^^^^^^^^^
+RuntimeError: Expected all tensors to be on the same device, but got mat2 is on cpu, different from other tensors on cuda:0 (when checking argument in method wrapper_CUDA_mm)
+
+
+### STAGE 3  figure 2 on ood_cot

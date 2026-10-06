@@ -1,0 +1,68 @@
+Phase-0 gate, DeepSeek-R1-Distill-Qwen-1.5B and Qwen2.5-1.5B-Instruct.
+NO CELL PASSED. Every candidate task failed at least one gate condition,
+and 100% of chains hit --max-new-tokens, so the chains were fragments.
+The gate refused to let training start. This is the cheapest failure.
+======================================================================
+
+### STAGE 1  phase-0 gate
+  [EXIT 2] gate_DeepSeek-R1-Distill-Qwen-1.5B   (log: /kaggle/working/cfd_runs/logs/gate_DeepSeek-R1-Distill-Qwen-1.5B.log)
+  ---- last lines of gate_DeepSeek-R1-Distill-Qwen-1.5B.log ----
+           * 100% of chains hit --max-new-tokens. They are fragments, so every faithfulness number above is meaningless. Raise it before changing anything else.
+  [fail] chain h=4 d=3  acc=0.210  lift=+0.000  err=0.067  shuf=-0.110  degen=0.00  steps=8.7  len=94  TRUNC=100%
+           - accuracy in band: acc=0.210 need 0.6-0.9
+           - CoT lift: lift=0.000 need >=0.25
+           - error propagation: err=0.067 need >=0.6
+           - shuffled-CoT gap: gap=-0.110 need >=0.2
+           * 100% of chains hit --max-new-tokens. They are fragments, so every faithfulness number above is meaningless. Raise it before changing anything else.
+  [fail] modarith h=2 d=0  acc=0.550  lift=+0.390  err=0.170  shuf=-0.340  degen=0.00  steps=9.7  len=82  TRUNC=100%
+           - accuracy in band: acc=0.550 need 0.6-0.9
+           - error propagation: err=0.170 need >=0.6
+           - shuffled-CoT gap: gap=-0.340 need >=0.2
+           * 100% of chains hit --max-new-tokens. They are fragments, so every faithfulness number above is meaningless. Raise it before changing anything else.
+  [fail] modarith h=3 d=0  acc=0.520  lift=+0.350  err=0.103  shuf=+0.190  degen=0.00  steps=6.5  len=84  TRUNC=100%
+           - accuracy in band: acc=0.520 need 0.6-0.9
+           - error propagation: err=0.103 need >=0.6
+           - shuffled-CoT gap: gap=0.190 need >=0.2
+           * 100% of chains hit --max-new-tokens. They are fragments, so every faithfulness number above is meaningless. Raise it before changing anything else.
+  [fail] modarith h=4 d=0  acc=0.320  lift=+0.080  err=0.165  shuf=+0.020  degen=0.00  steps=5.7  len=82  TRUNC=100%
+           - accuracy in band: acc=0.320 need 0.6-0.9
+           - CoT lift: lift=0.080 need >=0.25
+           - error propagation: err=0.165 need >=0.6
+           - shuffled-CoT gap: gap=0.020 need >=0.2
+           * 100% of chains hit --max-new-tokens. They are fragments, so every faithfulness number above is meaningless. Raise it before changing anything else.
+
+NO CELL PASSED -- do not start training. Raise hops/distractors or move up a model tier. This is the cheapest possible failure.
+
+  [EXIT 2] gate_Qwen2.5-1.5B-Instruct   (log: /kaggle/working/cfd_runs/logs/gate_Qwen2.5-1.5B-Instruct.log)
+  ---- last lines of gate_Qwen2.5-1.5B-Instruct.log ----
+  [fail] chain h=4 d=3  acc=0.337  lift=+0.102  err=0.112  shuf=+0.010  degen=0.02  steps=5.7  len=38  TRUNC=4%
+           - accuracy in band: acc=0.337 need 0.6-0.9
+           - CoT lift: lift=0.102 need >=0.25
+           - error propagation: err=0.112 need >=0.6
+           - shuffled-CoT gap: gap=0.010 need >=0.2
+  [fail] modarith h=2 d=0  acc=0.300  lift=+0.150  err=0.145  shuf=+0.040  degen=0.00  steps=7.3  len=77  TRUNC=80%
+           - accuracy in band: acc=0.300 need 0.6-0.9
+           - CoT lift: lift=0.150 need >=0.25
+           - error propagation: err=0.145 need >=0.6
+           - shuffled-CoT gap: gap=0.040 need >=0.2
+           * 80% of chains hit --max-new-tokens. They are fragments, so every faithfulness number above is meaningless. Raise it before changing anything else.
+  [fail] modarith h=3 d=0  acc=0.120  lift=-0.090  err=0.170  shuf=-0.060  degen=0.00  steps=8.0  len=78  TRUNC=97%
+           - accuracy in band: acc=0.120 need 0.6-0.9
+           - CoT lift: lift=-0.090 need >=0.25
+           - error propagation: err=0.170 need >=0.6
+           - shuffled-CoT gap: gap=-0.060 need >=0.2
+           * 97% of chains hit --max-new-tokens. They are fragments, so every faithfulness number above is meaningless. Raise it before changing anything else.
+  [fail] modarith h=4 d=0  acc=0.250  lift=+0.130  err=0.058  shuf=+0.000  degen=0.00  steps=8.2  len=78  TRUNC=100%
+           - accuracy in band: acc=0.250 need 0.6-0.9
+           - CoT lift: lift=0.130 need >=0.25
+           - error propagation: err=0.058 need >=0.6
+           - shuffled-CoT gap: gap=0.000 need >=0.2
+           * 100% of chains hit --max-new-tokens. They are fragments, so every faithfulness number above is meaningless. Raise it before changing anything else.
+
+NO CELL PASSED -- do not start training. Raise hops/distractors or move up a model tier. This is the cheapest possible failure.
+
+
+NO MODEL PASSED THE GATE. Nothing downstream is measurable.
+Raise --hops / --distractors, or use a larger model.
+
+[pipeline finished with code 2]

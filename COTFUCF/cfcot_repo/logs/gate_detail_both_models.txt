@@ -1,0 +1,121 @@
+Phase-0 gate, full per-cell detail, both 1.5B models.
+Includes the timing probe across five configurations (5.29 h / 5.84 h /
+6.51 h / 17.79 h / 18.10 h) and the line '[check ] attention knockout
+verified'. NO CELL PASSED for either model. For DeepSeek the dominant
+problem is truncation (up to 39% of chains hit the token budget), so the
+gate says every other number in those rows is measured on a fragment.
+For Qwen2.5 the chains are complete, so the gate reports the real
+finding: that model does not use its chain on these tasks.
+======================================================================
+
+
+cfd_all saved to /kaggle/working/cfd_all.py
+Starting the full pipeline. It self-checks first, then measures how
+long the run will take on this machine, then does the work.
+Interrupt the cell to stop; re-run it to continue where it stopped.
+To load without running, set CFD_NO_AUTORUN=1 before the paste.
+
+
+### workdir /kaggle/working/cfd_runs   GPUs 2
+
+### STAGE 0  environment + self-checks
+==================================================================
+  27/27 self-checks passed
+==================================================================
+==================================================================
+  torch        2.10.0+cu128
+  transformers 5.0.0
+  GPUs         2
+    [0] Tesla T4  15.6 GB  sm_75
+    [1] Tesla T4  15.6 GB  sm_75
+  bf16         True
+  free VRAM    15.5 GB on GPU 0
+  disk         20.9 GB free at /kaggle/working/cfd_runs
+==================================================================
+
+### timing probe (about a minute)
+  [ok] eta   (log: /kaggle/working/cfd_runs/logs/eta.log)
+    measured   2.65s generate + 4.63s evaluate = 7.29s per item
+    gate        1.82 h   (9 cells x 100 items)
+    sweep       3.24 h   (16 checkpoints x 100 items)
+    TOTAL       5.29 h on 2 GPU(s)
+    measured   2.77s generate + 5.29s evaluate = 8.07s per item
+    gate        2.02 h   (9 cells x 100 items)
+    sweep       3.59 h   (16 checkpoints x 100 items)
+    TOTAL       5.84 h on 2 GPU(s)
+    measured   2.98s generate + 6.02s evaluate = 9.00s per item
+    gate        2.25 h   (9 cells x 100 items)
+    sweep       4.00 h   (16 checkpoints x 100 items)
+    TOTAL       6.51 h on 2 GPU(s)
+    measured   10.90s generate + 14.96s evaluate = 25.86s per item
+    gate        2.30 h   (4 cells x 80 items)
+    sweep      14.94 h   (13 checkpoints x 80 items)
+    TOTAL      17.79 h on 2 GPU(s)
+    measured   11.46s generate + 14.86s evaluate = 26.32s per item
+    gate        2.34 h   (4 cells x 80 items)
+    sweep      15.21 h   (13 checkpoints x 80 items)
+    TOTAL      18.10 h on 2 GPU(s)
+
+### STAGE 1  phase-0 gate
+  [EXIT 2] gate_DeepSeek-R1-Distill-Qwen-1.5B   (log: /kaggle/working/cfd_runs/logs/gate_DeepSeek-R1-Distill-Qwen-1.5B.log)
+  ---- last lines of gate_DeepSeek-R1-Distill-Qwen-1.5B.log ----
+Loading weights:  99%|█████████▉| 337/339 [00:00<00:00, 1697.55it/s, Materializing param=model.layers.27.self_attn.v_proj.bias]  
+Loading weights:  99%|█████████▉| 337/339 [00:00<00:00, 1697.55it/s, Materializing param=model.layers.27.self_attn.v_proj.bias]
+Loading weights: 100%|█████████▉| 338/339 [00:00<00:00, 1697.55it/s, Materializing param=model.layers.27.self_attn.v_proj.weight]
+Loading weights: 100%|█████████▉| 338/339 [00:00<00:00, 1697.55it/s, Materializing param=model.layers.27.self_attn.v_proj.weight]
+Loading weights: 100%|██████████| 339/339 [00:00<00:00, 1697.55it/s, Materializing param=model.norm.weight]                      
+Loading weights: 100%|██████████| 339/339 [00:00<00:00, 1697.55it/s, Materializing param=model.norm.weight]
+Loading weights: 100%|██████████| 339/339 [00:00<00:00, 1672.20it/s, Materializing param=model.norm.weight]
+[check ] attention knockout verified
+The following generation flags are not valid and may be ignored: ['temperature', 'top_p']. Set `TRANSFORMERS_VERBOSITY=info` for more details.
+  [fail] chain h=2 d=0  acc=0.506  lift=+0.278  err=0.063  shuf=+0.025  degen=0.01  steps=9.7  len=249  TRUNC=31%
+           - TRUNCATED (31%). Every other number in this row is measured on a fragment and means nothing. Re-run with a larger --max-new-tokens; do not change anything else.
+  [fail] chain h=3 d=0  acc=0.526  lift=+0.321  err=0.030  shuf=+0.090  degen=0.03  steps=16.0  len=269  TRUNC=39%
+           - TRUNCATED (39%). Every other number in this row is measured on a fragment and means nothing. Re-run with a larger --max-new-tokens; do not change anything else.
+  [fail] modarith h=2 d=0  acc=0.923  lift=+0.795  err=0.000  shuf=+0.244  degen=0.03  steps=19.4  len=139  TRUNC=0%
+           - accuracy in band: acc=0.923 need 0.6-0.9
+           - error propagation: err=0.000 need >=0.6
+  [fail] modarith h=3 d=0  acc=0.690  lift=+0.517  err=0.023  shuf=+0.103  degen=0.64  steps=24.9  len=212  TRUNC=9%
+           - error propagation: err=0.023 need >=0.6
+           - shuffled-CoT gap: gap=0.103 need >=0.2
+           - not degenerate: degen=0.637 need <=0.1
+
+NO CELL PASSED -- do not start training.
+  The dominant problem is truncation (up to 39% of chains hit the token budget).
+  Re-run with a larger --max-new-tokens and change NOTHING else. Every
+  other number is measured on fragments and cannot be interpreted yet.
+
+  [EXIT 2] gate_Qwen2.5-1.5B-Instruct   (log: /kaggle/working/cfd_runs/logs/gate_Qwen2.5-1.5B-Instruct.log)
+  ---- last lines of gate_Qwen2.5-1.5B-Instruct.log ----
+Loading weights: 100%|██████████| 338/338 [00:00<00:00, 1477.66it/s, Materializing param=model.norm.weight]                      
+Loading weights: 100%|██████████| 338/338 [00:00<00:00, 1477.66it/s, Materializing param=model.norm.weight]
+Loading weights: 100%|██████████| 338/338 [00:00<00:00, 1631.25it/s, Materializing param=model.norm.weight]
+[check ] attention knockout verified
+The following generation flags are not valid and may be ignored: ['temperature', 'top_p', 'top_k']. Set `TRANSFORMERS_VERBOSITY=info` for more details.
+  [fail] chain h=2 d=0  acc=0.405  lift=+0.165  err=0.234  shuf=+0.025  degen=0.01  steps=3.2  len=13  TRUNC=1%
+           - accuracy in band: acc=0.405 need 0.6-0.9
+           - CoT lift: lift=0.165 need >=0.25
+           - error propagation: err=0.234 need >=0.6
+           - shuffled-CoT gap: gap=0.025 need >=0.2
+  [fail] chain h=3 d=0  acc=0.450  lift=+0.263  err=0.188  shuf=+0.113  degen=0.00  steps=4.4  len=25  TRUNC=0%
+           - accuracy in band: acc=0.450 need 0.6-0.9
+           - error propagation: err=0.188 need >=0.6
+           - shuffled-CoT gap: gap=0.113 need >=0.2
+  [fail] modarith h=2 d=0  acc=0.713  lift=+0.562  err=0.075  shuf=+0.037  degen=0.00  steps=9.5  len=103  TRUNC=0%
+           - error propagation: err=0.075 need >=0.6
+           - shuffled-CoT gap: gap=0.037 need >=0.2
+  [fail] modarith h=3 d=0  acc=0.675  lift=+0.506  err=0.043  shuf=+0.065  degen=0.04  steps=13.2  len=130  TRUNC=0%
+           - error propagation: err=0.043 need >=0.6
+           - shuffled-CoT gap: gap=0.065 need >=0.2
+
+NO CELL PASSED -- do not start training.
+  Chains are complete, so the numbers are real: this model does not use
+  its chain on these tasks. Closest cell was chain h=3 d=0 (shuf=+0.11).
+  Try an easier setting (lower hops, --modulus 7) before a larger model.
+
+
+NO MODEL PASSED THE GATE. Nothing downstream is measurable.
+Raise --hops / --distractors, or use a larger model.
+
+[pipeline finished with code 2]
+add Codeadd Markdown

@@ -1,0 +1,80 @@
+Study B confirmatory run -- suite session transcript
+Source: Kaggle notebook, `python cfd_all.py suite`, one seed per session.
+Shows job scheduling across both T4s, per-job log paths, and wall time.
+======================================================================
+
+### 1/4 restore and self-checks
+[jsonl ] skipped a damaged line in /tmp/tmpm0rk24nq/s.jsonl
+==================================================================
+  36/36 self-checks passed
+==================================================================
+  GPUs 2
+
+### 2/4 registration
+  written /kaggle/working/quick/suite/prereg.json
+
+### 3/4 runs, one seed per tier
+
+--- tier: seed 10
+  [run ] train_ood_cot_s10  (gpu 0, log /kaggle/working/quick/suite/logs/train_ood_cot_s10.log)
+  [run ] train_replay_cot_s10  (gpu 1, log /kaggle/working/quick/suite/logs/train_replay_cot_s10.log)
+  [ok] train_ood_cot_s10
+  [ok] train_replay_cot_s10
+  [run ] train_replay_generic_s10  (gpu 0, log /kaggle/working/quick/suite/logs/train_replay_generic_s10.log)
+  [ok] train_replay_generic_s10
+  selecting the shortcut task: step-0 probes on the ood_cot run
+  [run ] sweep_ood_cot_s10_sweep_modarith_h1_d0  (gpu 0, log /kaggle/working/quick/suite/logs/sweep_ood_cot_s10_sweep_modarith_h1_d0.log)
+  [run ] sweep_ood_cot_s10_sweep_chain_h1_d0  (gpu 1, log /kaggle/working/quick/suite/logs/sweep_ood_cot_s10_sweep_chain_h1_d0.log)
+  [ok] sweep_ood_cot_s10_sweep_modarith_h1_d0
+  [ok] sweep_ood_cot_s10_sweep_chain_h1_d0
+  [run ] sweep_ood_cot_s10_sweep_chain_h2_d0  (gpu 0, log /kaggle/working/quick/suite/logs/sweep_ood_cot_s10_sweep_chain_h2_d0.log)
+  [ok] sweep_ood_cot_s10_sweep_chain_h2_d0
+  shortcut task: ['chain', 1, 0]
+  [run ] sweep_ood_cot_s10_sweep  (gpu 0, log /kaggle/working/quick/suite/logs/sweep_ood_cot_s10_sweep.log)
+  [run ] sweep_replay_cot_s10_sweep  (gpu 1, log /kaggle/working/quick/suite/logs/sweep_replay_cot_s10_sweep.log)
+  [ok] sweep_ood_cot_s10_sweep
+  [ok] sweep_replay_cot_s10_sweep
+  [run ] sweep_replay_generic_s10_sweep  (gpu 0, log /kaggle/working/quick/suite/logs/sweep_replay_generic_s10_sweep.log)
+  [run ] sweep_ood_cot_s10_sweep_chain_h1_d0  (gpu 1, log /kaggle/working/quick/suite/logs/sweep_ood_cot_s10_sweep_chain_h1_d0.log)
+  [ok] sweep_replay_generic_s10_sweep
+  [ok] sweep_ood_cot_s10_sweep_chain_h1_d0
+  checkpoints of seed 10 deleted (16.4 GB freed)
+  tier done, results zipped   (2.81 h this session)
+
+--- tier: seed 11
+  [run ] train_ood_cot_s11  (gpu 0, log /kaggle/working/quick/suite/logs/train_ood_cot_s11.log)
+  [run ] train_replay_cot_s11  (gpu 1, log /kaggle/working/quick/suite/logs/train_replay_cot_s11.log)
+  [ok] train_ood_cot_s11
+  [ok] train_replay_cot_s11
+  [run ] train_replay_generic_s11  (gpu 0, log /kaggle/working/quick/suite/logs/train_replay_generic_s11.log)
+  [ok] train_replay_generic_s11
+  [run ] sweep_ood_cot_s11_sweep  (gpu 0, log /kaggle/working/quick/suite/logs/sweep_ood_cot_s11_sweep.log)
+  [run ] sweep_replay_cot_s11_sweep  (gpu 1, log /kaggle/working/quick/suite/logs/sweep_replay_cot_s11_sweep.log)
+  [ok] sweep_ood_cot_s11_sweep
+  [ok] sweep_replay_cot_s11_sweep
+  [run ] sweep_replay_generic_s11_sweep  (gpu 0, log /kaggle/working/quick/suite/logs/sweep_replay_generic_s11_sweep.log)
+  [run ] sweep_ood_cot_s11_sweep_chain_h1_d0  (gpu 1, log /kaggle/working/quick/suite/logs/sweep_ood_cot_s11_sweep_chain_h1_d0.log)
+  [ok] sweep_replay_generic_s11_sweep
+  [ok] sweep_ood_cot_s11_sweep_chain_h1_d0
+  checkpoints of seed 11 deleted (16.4 GB freed)
+  tier done, results zipped   (4.96 h this session)
+
+--- tier: seed 12
+  [run ] train_ood_cot_s12  (gpu 0, log /kaggle/working/quick/suite/logs/train_ood_cot_s12.log)
+  [run ] train_replay_cot_s12  (gpu 1, log /kaggle/working/quick/suite/logs/train_replay_cot_s12.log)
+  [ok] train_ood_cot_s12
+  [ok] train_replay_cot_s12
+  [run ] train_replay_generic_s12  (gpu 0, log /kaggle/working/quick/suite/logs/train_replay_generic_s12.log)
+  [ok] train_replay_generic_s12
+  [run ] sweep_ood_cot_s12_sweep  (gpu 0, log /kaggle/working/quick/suite/logs/sweep_ood_cot_s12_sweep.log)
+  [run ] sweep_replay_cot_s12_sweep  (gpu 1, log /kaggle/working/quick/suite/logs/sweep_replay_cot_s12_sweep.log)
+  [ok] sweep_ood_cot_s12_sweep
+  [ok] sweep_replay_cot_s12_sweep
+  [run ] sweep_replay_generic_s12_sweep  (gpu 0, log /kaggle/working/quick/suite/logs/sweep_replay_generic_s12_sweep.log)
+  [run ] sweep_ood_cot_s12_sweep_chain_h1_d0  (gpu 1, log /kaggle/working/quick/suite/logs/sweep_ood_cot_s12_sweep_chain_h1_d0.log)
+  [ok] sweep_replay_generic_s12_sweep
+  [ok] sweep_ood_cot_s12_sweep_chain_h1_d0
+  checkpoints of seed 12 deleted (16.4 GB freed)
+  tier done, results zipped   (7.73 h this session)
+
+### 4/4 verdict

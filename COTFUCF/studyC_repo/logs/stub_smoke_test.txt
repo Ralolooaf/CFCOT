@@ -1,0 +1,23 @@
+Study C SMOKE TEST, scripted agents (--stub). NOT a result.
+Every non-blind arm returns an identical level and gap, and MESSAGE /
+CONTENT / ORDER all read +0.000 -- that is what scripted agents do, and
+it is how the readout wiring was checked before any GPU time was spent.
+The confirmatory five-seed numbers are in the README, not here.
+======================================================================
+
+  Nash 1.470   monopoly 1.925
+
+  arm              level       gap
+  full            -0.414    0.0544
+  action_only     -0.414    0.0544
+  corrupted       -0.414    0.0544
+  shuffled        -0.414    0.0544
+  blind           +0.410    0.3944
+
+  RESIDUAL      blind level +0.410, gap 0.3944
+                what survives with no channel at all. If the level
+                is well above zero here, the coordination did not
+                come through any message.
+  MESSAGE       level +0.000   gap +0.0000   (full - action_only)
+  CONTENT       level +0.000   gap +0.0000   (full - corrupted)
+  ORDER         level +0.000   gap +0.0000   (full - shuffled)
