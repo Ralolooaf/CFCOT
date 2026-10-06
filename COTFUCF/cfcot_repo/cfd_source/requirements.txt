@@ -1,7 +1,0 @@
-# Kaggle images already ship torch, numpy and matplotlib.
-# Only transformers usually needs upgrading.
-torch>=2.1
-transformers>=4.44
-numpy>=1.24
-matplotlib>=3.7
-accelerate>=0.30
