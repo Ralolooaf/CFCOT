@@ -14,4 +14,6 @@ Chain-of-Thought Faithfulness Under Catastrophic Forgetting and in Multi-Agent C
 
 https://docs.google.com/document/d/1pwbRPfQF8HbvONmWXs1_-_Maw64-smPk/edit?usp=sharing&ouid=110327609977609542096&rtpof=true&sd=true
 
+***README files are AI-generated text except this.***
+
 As Extra, not for hackathon, multi-agent: https://github.com/Ralolooaf/multi-cfcot
